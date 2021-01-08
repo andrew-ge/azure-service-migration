@@ -7,6 +7,7 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 import logging
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -67,9 +68,9 @@ def notification():
             db.session.add(notification)
             db.session.commit()
 
-            ##################################################
-            ## TODO: Refactor This logic into an Azure Function
-            ## Code below will be replaced by a message queue
+            # #################################################
+            # TODO: Refactor This logic into an Azure Function
+            # Code below will be replaced by a message queue
             #################################################
             attendees = Attendee.query.all()
 
@@ -83,7 +84,7 @@ def notification():
             # TODO Call servicebus queue_client to enqueue notification ID
 
             #################################################
-            ## END of TODO
+            # END of TODO
             #################################################
 
             return redirect('/Notifications')
