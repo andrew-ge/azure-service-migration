@@ -63,16 +63,24 @@ Complete a month cost analysis of each Azure resource to give an estimate total 
 
 | Azure Resource | Service Tier | Monthly Cost |
 | ------------ | ------------ | ------------ |
-| *Azure Postgres Database* |     |              |
-| *Azure Service Bus*   |         |              |
-| *Azure Web App Service* |         |              |
-| *Azure Function App Service* |     |             |
-| *Azure Storage Account * |          |             |
-
+| *Azure Postgres Database* | Basic   |       $25.8       |
+| *Azure Service Bus*   |   Basic    |   $0.05           |
+| *Azure Web App Service* |   F1      |    Free          |
+| *Azure Function App Service* |  Consumption   | Free             |
+| *Azure Storage Account * |  General Purpose v2        |   $0.5          |
 
 ## Architecture Explanation
 This is a placeholder section where you can provide an explanation and reasoning for your architecture selection for both the Azure Web App and Azure Function.
 
+For Azure Web App and Azure Function, I am selecting the **F1** and **consumption** free services. This migration exercise  is a Nanodegree project. We do not expect any large transactions, but the full features are expected. The Web App and Azure Function provides me with some nice features:
+
+- Support Linux and Python development
+- Built-in load balancing and autoscale (this will be useful if the project goes real)
+- Fully integration with Visaul Studio Code for easy deployment and debugging
+- Provide Azure security 
+- High availability
+
+ 
 
 
 ##
