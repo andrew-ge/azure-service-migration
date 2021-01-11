@@ -9,7 +9,7 @@ from sendgrid.helpers.mail import Mail
 def main(msg: func.ServiceBusMessage):
 
     try:
-        notification_id =msg.get_body().decode('utf-8')
+        notification_id = int(msg.get_body().decode('utf-8'))
         logging.info("Python ServiceBus queue trigger processed message: %s",notification_id)
     except Exception as err:
         logging.error("Error in Getting ServiceBus Message")
@@ -24,8 +24,7 @@ def main(msg: func.ServiceBusMessage):
         logging.error(err)
     try:
         # TODO: Get notification message and subject from database using the notification_id
-        #notificationQuery = cursor.execute("Select message, subject from notification where id= {} ;".format(notification_id))
-        cursor.execute("Select message, subject from notification where id = 22 ;")
+        cursor.execute("Select message, subject from notification where id= {} ;".format(notification_id))
         notificationQuery = cursor.fetchone()
         # TODO: Get attendees email and name
         #conf_attendees = cursor.execute("Select first_name, last_name, email from attendee;")
@@ -40,8 +39,11 @@ def main(msg: func.ServiceBusMessage):
 
         # TODO: Update the notification table by setting the completed date and updating the status with the total number of attendees notified
         
-        notification_updateQuery = cursor.execute("Update notification SET status =  '{}', completed_date = '{}' where id = {}; ".format(
-            notification_status,notification_sent_date,22))
+        #notification_id = 59
+        updateQuery_str = "Update notification SET status =  '{}', completed_date = '{}' where id={:d}; ".format(
+            notification_status,notification_sent_date,notification_id)
+        logging.info(updateQuery_str)
+        cursor.execute(updateQuery_str)
         dbconn.commit()
         logging.info("Notification has been updated")
     except (Exception, psycopg2.DatabaseError) as error:

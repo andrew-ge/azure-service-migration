@@ -58,14 +58,14 @@ def notifications():
 @app.route('/Notification', methods=['POST', 'GET'])
 def notification():
     if request.method == 'POST':
-        notification = Notification()
-        notification.message = request.form['message']
-        notification.subject = request.form['subject']
-        notification.status = 'Notifications submitted'
-        notification.submitted_date = datetime.utcnow()
+        mynotification = Notification()
+        mynotification.message = request.form['message']
+        mynotification.subject = request.form['subject']
+        mynotification.status = 'Notifications submitted'
+        mynotification.submitted_date = datetime.utcnow()
 
         try:
-            db.session.add(notification)
+            db.session.add(mynotification)
             db.session.commit()
 
             # #################################################
@@ -88,9 +88,9 @@ def notification():
             # TODO Call servicebus queue_client to enqueue notification ID
 
             #fetches the Id of the record saved in tableT, Andrew 01/10/2021
-            notification_Id = notification.id
-            msg = Message(notification_Id)
-
+            notification_Id = mynotification.id
+            msg = Message(str(notification_Id))
+            
             # sends message to queue
             queue_client.send(msg)
             #################################################
